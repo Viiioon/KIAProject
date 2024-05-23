@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Super League Match Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Super League Match Predictor</h1>
+        <form id="predictionForm" action="/predict" method="post" onsubmit="return validateTeams()">
+            <div class="team-selection">
+                <label for="home_team">Home Team:</label>
+                <select name="home_team" id="home_team">
+                    <option value="" selected disabled>Select a team</option>
+                    {% for team in teams %}
+                        <option value="{{ team }}">{{ team }}</option>
+                    {% endfor %}
+                </select>
+                <img id="home_logo" class="logo" src="{{ url_for('static', filename='logos/default.png') }}" alt="Home Team Logo">
+            </div>
+            <div class="team-selection">
+                <label for="away_team">Away Team:</label>
+                <select name="away_team" id="away_team">
+                    <option value="" selected disabled>Select a team</option>
+                    {% for team in teams %}
+                        <option value="{{ team }}">{{ team }}</option>
+                    {% endfor %}
+                </select>
+                <img id="away_logo" class="logo" src="{{ url_for('static', filename='logos/default.png') }}" alt="Away Team Logo">
+            </div>
+            <button type="submit">Predict Outcome</button>
+        </form>
+        <div id="error-message" style="color: red; margin-top: 20px; display: none;">Home team and away team cannot be the same.</div>
+        {% if prediction %}
+            <div class="result">
+                <h2>Prediction: {{ prediction }}</h2>
+                <p>{{ home_team }} vs {{ away_team }}</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        document.getElementById('home_team').addEventListener('change', function() {
+            var homeTeam = this.value;
+            document.getElementById('home_logo').src = "{{ url_for('static', filename='logos') }}/" + homeTeam + ".png";
+        });
+
+        document.getElementById('away_team').addEventListener('change', function() {
+            var awayTeam = this.value;
+            document.getElementById('away_logo').src = "{{ url_for('static', filename='logos') }}/" + awayTeam + ".png";
+        });
+
+        function validateTeams() {
+            var homeTeam = document.getElementById('home_team').value;
+            var awayTeam = document.getElementById('away_team').value;
+            var errorMessage = document.getElementById('error-message');
+            
+            if (homeTeam === awayTeam) {
+                errorMessage.style.display = 'block';
+                return false;
+            } else {
+                errorMessage.style.display = 'none';
+                return true;
+            }
+        }
+    </script>
+</body>
+</html>

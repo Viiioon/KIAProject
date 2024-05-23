@@ -1,0 +1,12 @@
+End users:
+Football fans and betting companies
+
+Goal of end users:
+Gaining insights and making informed predictions about match outcomes. 
+Also to provide better odds and understanding potential outcomes.
+
+Obstacle to be solved:
+There is no user-friendly website which will predict scores for the Swiss League and this gap should be filled.
+
+
+

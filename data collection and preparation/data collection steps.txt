@@ -1,0 +1,6 @@
+Data collected from here:
+
+https://thefishy.co.uk/football-results.php?table=38&season=21 (via webscraping)
+https://football-data.co.uk/switzerland.php (via csv download)
+
+1. Merged them together
